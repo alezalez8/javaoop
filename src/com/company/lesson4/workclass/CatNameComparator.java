@@ -1,4 +1,4 @@
-package com.company.javaoop.lesson4;
+package com.company.lesson4.workclass;
 
 import java.util.Comparator;
 

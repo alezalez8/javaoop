@@ -11,7 +11,11 @@ public class ServiceStudent {
         System.out.println("Введите через пробел имя, фамилию и пол (в формате \"м или ж\" студента");
         String inpStudent = scanner.nextLine();
         String[] inputData = inpStudent.split("[ +]");
-        if (inputData[2].toLowerCase().matches("[mwмж]")) {
+        if(inputData.length != 3) {
+            System.out.println("Вы неправильно ввели данные");
+            return  null;
+        }
+        if (inputData[2].toLowerCase().matches("[mfмж]")) {
             if (inputData[2].equalsIgnoreCase("m")
                     || inputData[2].equalsIgnoreCase("м")) {
                 gender = Gender.MALE;
