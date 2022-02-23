@@ -17,6 +17,9 @@ public class Group {
     }
 
     public void addStudent(Student student) throws GroupOverflowException {
+        if (student == null) {
+            return;
+        }
 
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && student.getName().equals(students[i].getName())
@@ -100,8 +103,6 @@ public class Group {
     public String toString() {
         return "Группа: " + "\"" + groupName + "\"" +
                 ", студенты: "
-                + Arrays.toString(sortByLastName())
-                +
-                '}';
+                + Arrays.toString(sortByLastName());
     }
 }

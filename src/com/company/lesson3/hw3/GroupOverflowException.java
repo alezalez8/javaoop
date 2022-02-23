@@ -1,4 +1,4 @@
-package com.company.javaoop.lesson3.hw3;
+package com.company.lesson3.hw3;
 
 public class GroupOverflowException extends Exception{
     public GroupOverflowException() {
