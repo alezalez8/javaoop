@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws StudentNotFoundException {
 
+        Student student1 = new Student("Aleks", "Shunin", Gender.MALE);
+        Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
+        Student student3 = new Student("Sasha", "Petrov", Gender.MALE);
+
 /*
         Student student1 = new Student("Aleks", "Shunin", Gender.MALE);
         Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
@@ -47,8 +51,8 @@ public class Main {
         System.out.println("----------------1------------------------");
 
         try {
-            group.searchStudentByLastName("Sverdlov");
-            group.searchStudentByLastName("Sverd");  // try to find non-existent student
+            group.searchStudentByLastName("Ivanov");
+            group.searchStudentByLastName("Petro");  // try to find non-existent student
         } catch (StudentNotFoundException e) {
             System.out.println(e);
         }
@@ -56,7 +60,7 @@ public class Main {
 
         group.removeStudentByID(0); // try to delete non-existent student
         group.removeStudentByID(9);
-        group.removeStudentByID(10);
+
 
         System.out.println("------------------3----------------------");
         System.out.println(group);
@@ -64,7 +68,6 @@ public class Main {
         System.out.println("------------------4----------------------");
         try {
             group.addStudent(student.newStudent());  // try to add one more student
-            group.addStudent(student.newStudent());
         } catch (GroupOverflowException e) {
             System.out.println(e);
         }
@@ -72,8 +75,6 @@ public class Main {
         System.out.println("-------------------5---------------------");
         System.out.println(group);
 
-        group.removeStudentByID(4);
-        group.removeStudentByID(5);
         group.removeStudentByID(6);
         group.removeStudentByID(7);
         System.out.println("-------------------6---------------------");
