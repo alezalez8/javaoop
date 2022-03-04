@@ -14,6 +14,9 @@ public class Main {
             e.printStackTrace();
         }*/
 
+        //char[] aChars = new char[10];
+        //  String a = new String(aChars, 0, 5);
+
         File folderIn = new File("C:\\Users\\Администратор\\Desktop\\M");
         File folderOut = new File("C:\\Users\\Администратор\\Desktop\\M\\K");
         folderOut.mkdir();
