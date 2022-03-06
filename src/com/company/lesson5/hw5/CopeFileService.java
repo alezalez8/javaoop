@@ -8,6 +8,14 @@ public class CopeFileService {
     private File target;
     private String extension;
 
+    public CopeFileService() {
+    }
+
+    public CopeFileService(File source, File target, String extension) {
+        this.source = source;
+        this.target = target;
+        this.extension = extension;
+    }
 
     public void inputInfoAboutFiles() {
         Scanner scanner = new Scanner(System.in);
@@ -21,8 +29,8 @@ public class CopeFileService {
     }
 
 
-    public void copyCertinFile() throws IOException {
-        inputInfoAboutFiles();
+    public void copyDefiniteFile() throws IOException {
+     //   inputInfoAboutFiles();
         if (!source.isDirectory()) {
             System.out.println("Путь к исходной директории не является путем к директории");
             return;
@@ -31,14 +39,19 @@ public class CopeFileService {
         File[] files = source.listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].isFile()) {
-                if (extension.equals(files[i].getName().split(".")[1])) {
+                String[] extensionCurrentFile = files[i].getName().split("\\.");
+                if (extension.equals(extensionCurrentFile[1])) {
                     File outputFile = new File(target, files[i].getName());
                     copyFiles(files[i], outputFile);
                     countOfFiles++;
                 }
             }
         }
-        System.out.println("Всего скопирован(о)  " + countOfFiles + " файл(ов)");
+
+        System.out.println("Всего скопирован(о)  " + countOfFiles + " файла(ов)");
+        if (countOfFiles == 0) {
+            System.out.println("Файлы с таким расширением отстутствуют в указанной директории");
+        }
     }
 
     private void copyFiles(File file, File outputFile) throws IOException {
