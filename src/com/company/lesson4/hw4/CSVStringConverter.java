@@ -19,30 +19,30 @@ public class CSVStringConverter implements StringConverter {
 
     @Override
     public Student fromStringRepresentation(String str) {
-        String[] fueldsOfStudent = str.split("\n");
-        if (fueldsOfStudent.length != 5) {
+        String[] fieldsOfStudent = str.split("\n");
+        if (fieldsOfStudent.length != 5) {
             System.out.println("Данная строка не содержит все данные о студенте");
             return null;
         }
         String[] secondElement;
         student = new Student();
-        secondElement = fueldsOfStudent[0].split("[,;]");
+        secondElement = fieldsOfStudent[0].split("[,;]");
         student.setId(Integer.parseInt(secondElement[1]));
 
-        secondElement = fueldsOfStudent[1].split("[,;]");
+        secondElement = fieldsOfStudent[1].split("[,;]");
         student.setName(secondElement[1]);
 
-        secondElement = fueldsOfStudent[2].split("[,;]");
+        secondElement = fieldsOfStudent[2].split("[,;]");
         student.setLastName(secondElement[1]);
 
-        secondElement = fueldsOfStudent[3].split("[,;]");
+        secondElement = fieldsOfStudent[3].split("[,;]");
         if (secondElement[1].equals(Gender.MALE.toString())) {
             student.setGender(Gender.MALE);
         } else {
             student.setGender(Gender.FEMALE);
         }
 
-        secondElement = fueldsOfStudent[4].split("[,;]");
+        secondElement = fieldsOfStudent[4].split("[,;]");
         student.setGroupName(secondElement[1]);
 
         return student;
