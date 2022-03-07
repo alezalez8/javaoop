@@ -1,9 +1,6 @@
 package com.company.lesson5.hw5;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.Scanner;
 
 import com.company.lesson4.hw4.*;
@@ -15,29 +12,53 @@ public class GroupFileStorage {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите путь для сохранения файла " + group.getGroupName());
         String path = scanner.nextLine();
-        //File file = new File(path + "\\" + group.getGroupName() + "\\.csv");
         String csvFileName = group.getGroupName() + ".csv";
         File file = new File(path, csvFileName);
-        file.createNewFile();
-        try (Writer writer = new FileWriter(file)) {
-            //  Student[] students = group.getStudents();
-            CSVStringConverter converter = new CSVStringConverter();
+        boolean isFileCreate = file.createNewFile();
 
-            for (int i = 0; i < group.getStudents().length; i++) {
+        if (isFileCreate) {
+            try (Writer writer = new FileWriter(file)) {
+                CSVStringConverter converter = new CSVStringConverter();
 
-                //  converter.toStringRepresentation(students[i]);
-                if ((group.getStudents())[i] != null) {
-                    String csvStroka = converter.toStringRepresentation((group.getStudents())[i]);
-                    writer.write(csvStroka);
+                for (int i = 0; i < group.getStudents().length; i++) {
+                    if ((group.getStudents())[i] != null) {
+                        String csvStroka = converter.toStringRepresentation((group.getStudents())[i]);
+                        writer.write(csvStroka);
+                    }
                 }
+
+                System.out.println("Файл успешно сохранен");
+
             }
-            System.out.println("Файл успешно сохранен");
+        } else {
+            System.out.println("Не могу создать файл с таким именем");
         }
 
     }
 
-    public Group loadGroupFromCSV(File file) {
-        return new Group();
+    public Group loadGroupFromCSV(File file) throws IOException {
+        Group group = new Group();
+        CSVStringConverter converter = new CSVStringConverter();
+        if (file.isFile()) {
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String studentCSV = "";
+                String temp = "";
+                for (; ; ) {
+                    temp = reader.readLine();
+                    if (temp == null) {
+                        break;
+                    }
+                    converter.fromStringRepresentation(temp);
+
+                    studentCSV += temp + System.lineSeparator();
+
+                }
+                System.out.println(studentCSV);
+            }
+
+        }
+        return group;
     }
 
     public File findFileByGroupName(String groupName, File workFolder) {

@@ -19,6 +19,7 @@ public class Starter {
         Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
         Student student3 = new Student("Sasha", "Petrov", Gender.MALE);
 
+/*
         try {
             group.addStudent(student1);
             group.addStudent(student2);
@@ -28,6 +29,12 @@ public class Starter {
         }
 
         storage.saveGroupToCSV(group);
+*/
+        File file = new File("C:\\Users\\Администратор\\Desktop\\M\\javaOOP.csv");
+        storage.loadGroupFromCSV(file);
+
+
+
 
 
 
