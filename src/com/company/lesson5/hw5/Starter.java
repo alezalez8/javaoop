@@ -12,6 +12,8 @@ public class Starter {
 
     public static void main(String[] args) throws IOException {
 
+
+
         GroupFileStorage storage = new GroupFileStorage();
         Group group = new Group("javaOOP");
 
@@ -21,7 +23,6 @@ public class Starter {
         Student student4 = new Student("Елена", "Сидорова", Gender.FEMALE);
         Student student5 = new Student("Катерина", "Шишова", Gender.FEMALE);
 
-/*
         try {
             group.addStudent(student1);
             group.addStudent(student2);
@@ -31,17 +32,22 @@ public class Starter {
         } catch (GroupOverflowException e) {
             System.out.println(e);
         }
-        System.out.println("------------------ 1 --------------------");
-        storage.saveGroupToCSV(group);
-*/
-        // path for save:  C:\\Users\\Администратор\\Desktop\\M
-        System.out.println("------------------ 2 --------------------");
+        System.out.println("------------------ copy file --------------------");
+        CopeFileService copeFileService = new CopeFileService();
+        copeFileService.copyDefiniteFile();
 
+
+        System.out.println("------------------ saveGroupToCSV --------------------");
+        storage.saveGroupToCSV(group);
+
+        // --------- path for save:  C:\\Users\\Администратор\\Desktop\\M ---------------------
+
+        System.out.println("-----------------loadGroupFromCSV----------------------");
 
         File file1 = new File("C:\\Users\\Администратор\\Desktop\\M\\javaOOP.csv");
         storage.loadGroupFromCSV(file1);
 
-        System.out.println("------------------ 3 --------------------");
+        System.out.println("------------------ search file by name --------------------");
 
         File file2 = new File("C:\\Users\\Администратор\\Desktop\\M");
         String groupName = "javaOOP";

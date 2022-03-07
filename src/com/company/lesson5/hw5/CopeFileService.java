@@ -29,7 +29,8 @@ public class CopeFileService {
 
 
     public void copyDefiniteFile() throws IOException {
-     //   inputInfoAboutFiles();
+
+        inputInfoAboutFiles();
         if (!source.isDirectory()) {
             System.out.println("Путь к исходной директории не является путем к директории");
             return;

@@ -7,6 +7,9 @@ public class CSVStringConverter implements StringConverter {
     private Student student;
     private String csvStroka;
 
+    public CSVStringConverter() {
+    }
+
     @Override
     public String toStringRepresentation(Student student) {
         if (student != null) {

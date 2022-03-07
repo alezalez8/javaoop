@@ -38,10 +38,6 @@ public class Group {
                 student.setId(i + 1);
                 students[i] = student;
                 countOfStudents++;
-/*
-                System.out.println("Student " + student.getName() +
-                        " " + student.getLastName() + " was added to group succesfully");
-*/
                 return;
             }
         }

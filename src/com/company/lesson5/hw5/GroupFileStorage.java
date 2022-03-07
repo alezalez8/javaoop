@@ -2,13 +2,15 @@ package com.company.lesson5.hw5;
 
 import java.io.*;
 import java.util.Scanner;
-
 import com.company.lesson4.hw4.*;
 
 
 public class GroupFileStorage {
     private final CSVStringConverter converter = new CSVStringConverter();
     private final Group group = new Group();
+
+    public GroupFileStorage() {
+    }
 
     public void saveGroupToCSV(Group group) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -28,9 +30,7 @@ public class GroupFileStorage {
                         writer.write(csvStroka);
                     }
                 }
-
                 System.out.println("Файл успешно сохранен");
-
             }
         } else {
             System.out.println("Не могу создать файл с таким именем");
@@ -64,8 +64,6 @@ public class GroupFileStorage {
 
     public File findFileByGroupName(String groupName, File workFolder) {
         File groupFile = null;
-
-
         if (workFolder.isDirectory()) {
             File[] listFiles = workFolder.listFiles();
             for (int i = 0; i < listFiles.length; i++) {
