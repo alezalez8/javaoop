@@ -7,6 +7,8 @@ import com.company.lesson4.hw4.*;
 
 
 public class GroupFileStorage {
+    private final CSVStringConverter converter = new CSVStringConverter();
+    private final Group group = new Group();
 
     public void saveGroupToCSV(Group group) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -18,7 +20,7 @@ public class GroupFileStorage {
 
         if (isFileCreate) {
             try (Writer writer = new FileWriter(file)) {
-                CSVStringConverter converter = new CSVStringConverter();
+                //  CSVStringConverter converter = new CSVStringConverter();
 
                 for (int i = 0; i < group.getStudents().length; i++) {
                     if ((group.getStudents())[i] != null) {
@@ -37,36 +39,42 @@ public class GroupFileStorage {
     }
 
     public Group loadGroupFromCSV(File file) throws IOException {
-        Group group = new Group();
-        CSVStringConverter converter = new CSVStringConverter();
         if (file.isFile()) {
-
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String studentCSV = "";
                 String temp = "";
                 for (; ; ) {
                     temp = reader.readLine();
                     if (temp == null) {
                         break;
                     }
-                    converter.fromStringRepresentation(temp);
+                    Student student = converter.fromStringRepresentation(temp);
 
-                    studentCSV += temp + System.lineSeparator();
-
+                    try {
+                        group.addStudent(student);
+                    } catch (GroupOverflowException e) {
+                        e.printStackTrace();
+                    }
                 }
-                System.out.println(studentCSV);
             }
-
         }
+
+        System.out.println(group);
         return group;
     }
 
     public File findFileByGroupName(String groupName, File workFolder) {
-        return new File("");
+        File groupFile = null;
+        if (workFolder.isDirectory()) {
+            File[] listFiles = workFolder.listFiles();
+            for (int i = 0; i < listFiles.length; i++) {
+
+                if (groupName.equals(listFiles[i].getName())) {
+                    System.out.println(listFiles[i].getName());
+                    groupFile = listFiles[i];
+                }
+            }
+        }
+        return groupFile;
     }
 }
 
-
-// 1;Сергей;Иванов;м;javaoop
-// 2;Евгений;Петров;м;javaoop
-// 3;Елена;Сидорова;ж;javaoop

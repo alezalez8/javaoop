@@ -25,7 +25,6 @@ public class CopeFileService {
         target = new File(scanner.nextLine());
         System.out.println("Введите расширение файла");
         extension = scanner.nextLine();
-
     }
 
 
@@ -56,7 +55,6 @@ public class CopeFileService {
     }
 
     private void copyFiles(File file, File outputFile) throws IOException {
-
         try (InputStream inputStream = new FileInputStream(file);
              OutputStream outputStream = new FileOutputStream(outputFile)) {
             inputStream.transferTo(outputStream);

@@ -18,38 +18,34 @@ public class Starter {
         Student student1 = new Student("Aleks", "Shunin", Gender.MALE);
         Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
         Student student3 = new Student("Sasha", "Petrov", Gender.MALE);
+        Student student4 = new Student("Елена", "Сидорова", Gender.FEMALE);
+        Student student5 = new Student("Катерина", "Шишова", Gender.FEMALE);
 
-/*
         try {
             group.addStudent(student1);
             group.addStudent(student2);
             group.addStudent(student3);
+            group.addStudent(student4);
+            group.addStudent(student5);
         } catch (GroupOverflowException e) {
             System.out.println(e);
         }
-
+        System.out.println("------------------ 1 --------------------");
         storage.saveGroupToCSV(group);
-*/
-        File file = new File("C:\\Users\\Администратор\\Desktop\\M\\javaOOP.csv");
-        storage.loadGroupFromCSV(file);
+        // path for save:  C:\\Users\\Администратор\\Desktop\\M
+        System.out.println("------------------ 2 --------------------");
 
 
+        File file1 = new File("C:\\Users\\Администратор\\Desktop\\M\\javaOOP.csv");
+        storage.loadGroupFromCSV(file1);
 
+        System.out.println("------------------ 3 --------------------");
 
+        File file2 = new File("C:\\Users\\Администратор\\Desktop\\M)");
+        String groupName = "javaOOP";
+        System.out.println(storage.findFileByGroupName(groupName, file2));
 
-
-
-/*
-        File source = new File("C:\\Users\\Администратор\\Desktop\\A");
-        File target = new File("C:\\Users\\Администратор\\Desktop\\M");
-        String extens = "pdf";
-
-        CopeFileService fileService = new CopeFileService(source, target, extens);
-        fileService.copyDefiniteFile();
-*/
 
     }
 }
 
-//  C:\\Users\\Администратор\\Desktop\\M
-// C:\Users\Администратор\Desktop\M

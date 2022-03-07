@@ -30,12 +30,18 @@ public class Group {
 
         for (int i = 0; i < students.length; i++) {
             if (students[i] == null) {
-                student.setGroupName(groupName);
+                if (student.getGroupName() == null) {
+                    student.setGroupName(groupName);
+                } else {
+                    setGroupName(student.getGroupName());
+                }
                 student.setId(i + 1);
                 students[i] = student;
                 countOfStudents++;
+/*
                 System.out.println("Student " + student.getName() +
                         " " + student.getLastName() + " was added to group succesfully");
+*/
                 return;
             }
         }
