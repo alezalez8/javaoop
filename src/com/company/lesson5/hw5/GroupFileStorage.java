@@ -64,12 +64,12 @@ public class GroupFileStorage {
 
     public File findFileByGroupName(String groupName, File workFolder) {
         File groupFile = null;
+
+
         if (workFolder.isDirectory()) {
             File[] listFiles = workFolder.listFiles();
             for (int i = 0; i < listFiles.length; i++) {
-
-                if (groupName.equals(listFiles[i].getName())) {
-                    System.out.println(listFiles[i].getName());
+                if (groupName.equals(((listFiles[i].getName()).split("\\."))[0])) {
                     groupFile = listFiles[i];
                 }
             }

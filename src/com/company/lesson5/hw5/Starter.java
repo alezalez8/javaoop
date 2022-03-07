@@ -21,6 +21,7 @@ public class Starter {
         Student student4 = new Student("Елена", "Сидорова", Gender.FEMALE);
         Student student5 = new Student("Катерина", "Шишова", Gender.FEMALE);
 
+/*
         try {
             group.addStudent(student1);
             group.addStudent(student2);
@@ -32,6 +33,7 @@ public class Starter {
         }
         System.out.println("------------------ 1 --------------------");
         storage.saveGroupToCSV(group);
+*/
         // path for save:  C:\\Users\\Администратор\\Desktop\\M
         System.out.println("------------------ 2 --------------------");
 
@@ -41,9 +43,10 @@ public class Starter {
 
         System.out.println("------------------ 3 --------------------");
 
-        File file2 = new File("C:\\Users\\Администратор\\Desktop\\M)");
+        File file2 = new File("C:\\Users\\Администратор\\Desktop\\M");
         String groupName = "javaOOP";
-        System.out.println(storage.findFileByGroupName(groupName, file2));
+        File searchFile = storage.findFileByGroupName(groupName, file2);
+        System.out.println("Найден файл:  " + searchFile.getName());
 
 
     }
