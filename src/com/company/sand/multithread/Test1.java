@@ -6,8 +6,8 @@ public class Test1 {
     public static void main(String[] args) {
         long sum = 0;
         long[] arrayCycles = new long[1000];
-        long cyclesSumm = 0;
-        long total = 0;
+       // long cyclesSumm = 0;
+       // long total = 0;
 
         int arrayLength = 1_000_000;
         long[] arrayLong = new long[arrayLength];
