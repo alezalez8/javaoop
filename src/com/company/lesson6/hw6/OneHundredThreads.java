@@ -1,4 +1,4 @@
-package com.company.lesson6.classwork.hw6;
+package com.company.lesson6.hw6;
 
 import java.math.BigInteger;
 
