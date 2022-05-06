@@ -5,39 +5,39 @@ import java.io.*;
 public class MultiCopyFiles {
     public static void main(String[] args) {
 
-        File inputFile = new File("C\\tempOne");
-        File outputFile = new File("C\\tempTwo");
+        File inputDir = new File("C://tempOne");
+        File outputDir = new File("C://tempTwo");
 
-        File[] listOfFiles = inputFile.listFiles();
+        File[] listOfFiles = inputDir.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if(listOfFiles[i].isFile()){
-                Thread thread = new Thread(new copyFileThread(new File(listOfFiles[i].getName()), outputFile));
+                File outputFile = new File(outputDir, listOfFiles[i].getName());
+                CopyFileThread copyFile = new CopyFileThread(listOfFiles[i], outputFile);
+                Thread thread = new Thread(copyFile);
                 thread.start();
             }
         }
-
-
     }
 
 
 }
 
-class copyFileThread implements Runnable {
-    private File inputFile;
+class CopyFileThread implements Runnable {
+    private File inputDir;
     private File outputFile;
 
-    public copyFileThread(File inputFile, File outputFile ) {
-        this.inputFile = inputFile;
+    public CopyFileThread(File inputDir, File outputFile ) {
+        this.inputDir = inputDir;
         this.outputFile = outputFile;
     }
 
     private  void fileCopyService() throws IOException {
         long sizeFile = 0;
-        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(inputFile));
-             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outputFile))) {
-            sizeFile = bis.transferTo(bos);
-            System.out.println("Скопирован файл " + inputFile.getName() + ", размер файла " + sizeFile);
+        try (InputStream fis = new FileInputStream(inputDir);
+             OutputStream fos = new FileOutputStream(outputFile)) {
+            sizeFile = fis.transferTo(fos);
+            System.out.println("Скопирован файл " + inputDir.getName() + ", размер файла " + sizeFile);
         }
     }
 
