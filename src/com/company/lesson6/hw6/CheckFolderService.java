@@ -13,22 +13,21 @@ public class CheckFolderService {
 
         //String pathFolder = "C://tempTwo";
         File file = new File(pathFolder);
-        FilePresent filePresent = new FilePresent(file);
-        Thread thread = new Thread(filePresent);
+        Thread thread = new Thread(new FileChecker(file));
         thread.start();
         // todo something else
 
     }
 }
 
-class FilePresent implements Runnable {
+class FileChecker implements Runnable {
     private File file;
 
-    public FilePresent(File file) {
+    public FileChecker(File file) {
         this.file = file;
     }
 
-    private int countPresentFileInDir(File file) {
+    private int counterFilesInDir(File file) {
         int amountOfFile = 0;
         File[] files = file.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -41,16 +40,16 @@ class FilePresent implements Runnable {
 
     @Override
     public void run() {
-        int temp = countPresentFileInDir(file);
+        int temp = counterFilesInDir(file);
         for (; ; ) {
 
-            if (temp != countPresentFileInDir(file)) {
-                if (temp > countPresentFileInDir(file)) {
+            if (temp != counterFilesInDir(file)) {
+                if (temp > counterFilesInDir(file)) {
                     System.out.println("One or more file was delete");
                 } else {
                     System.out.println("One or more file was added");
                 }
-                temp = countPresentFileInDir(file);
+                temp = counterFilesInDir(file);
             }
             try {
                 Thread.sleep(1000);
@@ -58,6 +57,5 @@ class FilePresent implements Runnable {
                 e.printStackTrace();
             }
         }
-
     }
 }
