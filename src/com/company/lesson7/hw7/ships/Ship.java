@@ -1,19 +1,17 @@
 package com.company.lesson7.hw7.ships;
 
-
 public class Ship implements Runnable {
-    private int amountOfCargo = 10;
+    private int amountOfBox;
     private Dock dock;
-    private boolean isLoading;
 
-    public Ship(Dock dock) {
+    public Ship(Dock dock, int amountOfBox) {
         this.dock = dock;
+        this.amountOfBox = amountOfBox;
     }
 
     @Override
     public void run() {
-
-       dock.upLoad(amountOfCargo);
+       dock.upLoad(amountOfBox);
     }
 }
 

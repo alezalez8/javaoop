@@ -1,38 +1,44 @@
 package com.company.lesson7.hw7.ships;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Dock {
 
-    private boolean isFull;
-    private int amountOfCargo;
-    public static volatile int amountOfShip = 0;
-
+    private volatile int amountOfShip = 0;
+    private AtomicInteger numberOfShip = new AtomicInteger(0);
 
     public Dock() {
-
     }
 
     public synchronized void upLoad(int amountOfCargo) {
         amountOfShip++;
-        if (amountOfShip < 3) {
+
+        if (!(amountOfShip < 3)) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        int numberOfShip = this.numberOfShip.incrementAndGet();
+
+        System.out.println("---------------- Судно № " +
+                numberOfShip + " встало под разгрузку -------------");
         for (; amountOfCargo > 0; amountOfCargo--) {
-            System.out.println("upLoad  " + amountOfCargo + " thread " + Thread.currentThread().getId());
-            System.out.println("amountOfShip = " + amountOfShip);
+            System.out.println("Судно № " + numberOfShip +
+                    ": осталось выгрузить " + amountOfCargo + " ящик(ов)");
 
             try {
-                wait(200);
+                wait(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        notifyAll();
-        amountOfCargo--;
         amountOfShip--;
+
+        System.out.println("---------------- Судно № " +
+                numberOfShip + " полностью разгружено -------------");
+        notifyAll();
     }
 }
 
