@@ -16,6 +16,6 @@ public class Printer {
         }
         System.out.println(text);
         idThread = id;
-        notify();
+        notifyAll();
     }
 }
