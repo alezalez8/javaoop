@@ -16,17 +16,38 @@ public class Group {
         this.groupName = groupName;
     }
 
+
+    public boolean theSameStudentIsPresent(Student student) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i] != null && students[i].hashCode() == student.hashCode()) {
+                if (students[i].equals(student)) {
+                   return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     public void addStudent(Student student) throws GroupOverflowException {
+
+        if(!theSameStudentIsPresent(student)) {
+            throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
+        }
+
+       //  ------------ old block of checking student -------------------
+/*
         if (student == null) {
             return;
         }
-
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && student.getName().equals(students[i].getName())
                     && student.getLastName().equals(students[i].getLastName())) {
                 throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
             }
         }
+*/
+        // ---------------- end of block ----------------------------------
 
         for (int i = 0; i < students.length; i++) {
             if (students[i] == null) {
