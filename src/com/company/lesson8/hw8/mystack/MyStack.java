@@ -36,11 +36,11 @@ public class MyStack {
             newSizeOfArrayObjects(stackArray);
         }
 
-        for (int i = sizeOfStack - 1; i >= 0; i--) {
+        for (int i = sizeOfStack - 1; i > 0; i--) {
             if (stackArray[i] != null) {
                 temp = stackArray[i];
-                stackArray[i] = stackArray[i + 1];
-                stackArray[i + 1] = temp;
+                stackArray[i] = stackArray[i - 1];
+                stackArray[i - 1] = temp;
             }
         }
         stackArray[0] = object;
