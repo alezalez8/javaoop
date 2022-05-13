@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class MyStack {
 
-    private int sizeOfStack = 3;
+    private int sizeOfStack = 4;
     private int amountOfnotNullElement = 0;
     private Object[] stackArray = new Object[sizeOfStack];
 
@@ -16,6 +16,7 @@ public class MyStack {
         Boolean isSomething = true;
         Integer x = 100;
         Double y = 20.5;
+        Object object = new MyStack();
 
         myStack.push(obj1);
         System.out.println(Arrays.toString(myStack.getStackArray()));
@@ -25,19 +26,35 @@ public class MyStack {
         System.out.println(Arrays.toString(myStack.getStackArray()));
         myStack.push(y);
         System.out.println(Arrays.toString(myStack.getStackArray()));
+        myStack.push(obj1);
+        System.out.println(Arrays.toString(myStack.getStackArray()));
         myStack.push(isSomething);
         System.out.println(Arrays.toString(myStack.getStackArray()));
+        myStack.push(object);
+        System.out.println(Arrays.toString(myStack.getStackArray()));
+
+        System.out.println(myStack.peek());
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        System.out.println(Arrays.toString(myStack.getStackArray()));
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        System.out.println(Arrays.toString(myStack.getStackArray()));
+        System.out.println(myStack.pop());
+        System.out.println(Arrays.toString(myStack.getStackArray()));
+
     }
 
 
     public void push(Object object) {            // add element into stack
         Object temp;
         if (amountOfnotNullElement >= sizeOfStack) {
-            newSizeOfArrayObjects(stackArray);
+            stackArray = newSizeOfArrayObjects(stackArray);
         }
-
         for (int i = sizeOfStack - 1; i > 0; i--) {
-            if (stackArray[i] != null) {
+            if (stackArray[i - 1] != null) {  // reduce swap null-elements
                 temp = stackArray[i];
                 stackArray[i] = stackArray[i - 1];
                 stackArray[i - 1] = temp;
@@ -45,12 +62,21 @@ public class MyStack {
         }
         stackArray[0] = object;
         amountOfnotNullElement++;
-
-
     }
 
-    public Object pop() {                       // get and delete stack's top elemement
-        return null;
+    public Object pop() {                // get and delete stack's top elemement
+        Object temp = peek();
+        if (amountOfnotNullElement != 0) {    // сдвиг влево
+            for (int i = 0; i < sizeOfStack - 1; i++) {
+                stackArray[i] = stackArray[i + 1];
+            }
+
+            for (int i = amountOfnotNullElement - 1; i < sizeOfStack; i++) { // заполнение
+                stackArray[i] = null;                   // оставшихся ячеек null-значениями
+            }
+            amountOfnotNullElement--;
+        }
+        return temp;
     }
 
     public Object peek() {                       // get  stack's top elemement
@@ -72,5 +98,8 @@ public class MyStack {
         return newArrayObject;
     }
 
-
+    @Override
+    public String toString() {
+        return "my stack";
+    }
 }
