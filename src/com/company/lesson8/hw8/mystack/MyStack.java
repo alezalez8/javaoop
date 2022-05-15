@@ -66,15 +66,12 @@ public class MyStack {
 
     public Object pop() {                // get and delete stack's top elemement
         Object temp = peek();
+        int tempOfNull =  amountOfnotNullElement;
         if (amountOfnotNullElement != 0) {    // сдвиг влево
             for (int i = 0; i < sizeOfStack - 1; i++) {
                 stackArray[i] = stackArray[i + 1];
             }
-
-            for (int i = amountOfnotNullElement - 1; i < sizeOfStack; i++) { // заполнение
-                stackArray[i] = null;                   // оставшихся ячеек null-значениями
-            }
-            amountOfnotNullElement--;
+            stackArray[tempOfNull] = null; // add null to end of queuu of present elements
         }
         return temp;
     }
