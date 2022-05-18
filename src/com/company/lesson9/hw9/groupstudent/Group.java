@@ -8,9 +8,9 @@ import java.util.List;
 public class Group {
 
     private String groupName;
-    private Student[] students = new Student[10];
+    // private Student[] students = new Student[10];
 
-    private List<Student> students1 = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     private int countOfStudents = 0;
 
@@ -25,12 +25,13 @@ public class Group {
     //---------------------- #  1 ---------------------------
     public boolean theSameStudentIsPresent1(Student student) {
         if (student != null) {
-            return students1.contains(student);
+            return students.contains(student);
         }
         return false;
     }
 
 
+/*
     public boolean theSameStudentIsPresent(Student student) {
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && students[i].hashCode() == student.hashCode()) {
@@ -41,26 +42,35 @@ public class Group {
         }
         return true;
     }
+*/
 
     // ------------------------ end 1 -----------------------------
 
     // ------------------------ #  2  ---------------------------
 
 
-    public void addStudent1(Student student) throws GroupOverflowException {
+    public void addStudent(Student student) throws GroupOverflowException {
         if (theSameStudentIsPresent1(student)) {
             throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
         }
-        if (students1.size() < 10) {
+        if (students.size() < 10) {
             if (student.getGroupName() == null) {
                 student.setGroupName(groupName);
             } else {
                 setGroupName(student.getGroupName());
             }
-            for (int i = 0; i < students1.size(); i++) {
-                if (students1.get(i).getId() != i) {
-                    student.setId(i);
-                    students1.add(i, student);
+            //------------------------------------------------------
+            if (students.size() == 0) {
+                student.setId(0);
+                students.add(0, student);
+            }
+
+            for (int i = 0; i <= students.size(); i++) {
+               // System.err.println(students.toString());
+                if (students.get(i).getId() == i) {
+                    student.setId(i+1);
+                    students.add(i+1, student);
+                   // countOfStudents++;
                     return;
                 }
             }
@@ -70,6 +80,7 @@ public class Group {
     }
 
 
+/*
     public void addStudent(Student student) throws GroupOverflowException {
 
         if (!theSameStudentIsPresent(student)) {
@@ -93,15 +104,16 @@ public class Group {
 
 
     }
+*/
     // ------------------------------- end 2 --------------------------------
 
 
     //================================= # 3 ==========================================
 
-    public Student searchStudentByLastName1(String lastName) throws StudentNotFoundException {
-        for (Student studentLastName : students1
-        ) {
+    public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
+        for (Student studentLastName : students) {
             if (lastName.equals(studentLastName.getLastName())) {
+                System.out.println("Student " + studentLastName + " was found");
                 return studentLastName;
             }
         }
@@ -110,6 +122,7 @@ public class Group {
     }
 
 
+/*
     public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && lastName.equals(students[i].getLastName())) {
@@ -119,18 +132,20 @@ public class Group {
         }
         throw new StudentNotFoundException("Student " + lastName + " was not found");
     }
+*/
 
     //==================================== end 3 ===========================================
 
 
     // ++++++++++++++++++++++++++++++  # 4 ++++++++++++++++++++++++++++++++++++++++++++
 
-    public List<Student> sortByLastName1() {
-       // students1.sort((o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
-        students1.sort(Comparator.comparing(Human::getLastName));
-        return students1;
+    public List<Student> sortByLastName() {
+        // students1.sort((o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
+        students.sort(Comparator.comparing(Human::getLastName));
+        return students;
     }
 
+/*
     public Student[] sortByLastName() {
         Student[] factStudents = new Student[countOfStudents];
         int newArrayOfStudent = 0;
@@ -145,14 +160,16 @@ public class Group {
 
 
     }
+*/
 
     // +++++++++++++++++++++++++++++++++++  end 4 +++++++++++++++++++++++++++++++++++++++++++++++++
 
     //  *********************************** # 5 *************************************************
 
 
-    public boolean removeStudentByID1(int id) {
-        if (students1.remove(students1.get(id))) {
+    public boolean removeStudentByID(int id) {
+       // if (students.remove(students.get(id))) {
+        if (students.remove(id)!= null) {
             System.out.println("Student with id = " + id + " was deleted succesfully");
             return true;
         }
@@ -161,6 +178,7 @@ public class Group {
     }
 
 
+/*
     public boolean removeStudentByID(int id) {
         for (int i = 0; i < students.length; i++) {
             if (students[i] != null && id == students[i].getId()) {
@@ -173,6 +191,7 @@ public class Group {
         System.out.println("Student with id = " + id + " was not found");
         return false;
     }
+*/
 
     // ************************************* end 5 ****************************************************
 
@@ -184,6 +203,7 @@ public class Group {
         this.groupName = groupName;
     }
 
+/*
     public Student[] getStudents() {
         return students;
     }
@@ -191,14 +211,46 @@ public class Group {
     public void setStudents(Student[] students) {
         this.students = students;
     }
+*/
+
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     @Override
     public String toString() {
         return "Группа: " + "\"" + groupName + "\"" +
                 ", студенты: "
-                + Arrays.toString(sortByLastName());
+                + students.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Group)) return false;
+
+        Group group = (Group) o;
+
+        if (countOfStudents != group.countOfStudents) return false;
+        if (groupName != null ? !groupName.equals(group.groupName) : group.groupName != null) return false;
+        return students != null ? students.equals(group.students) : group.students == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = groupName != null ? groupName.hashCode() : 0;
+        result = 31 * result + (students != null ? students.hashCode() : 0);
+        result = 31 * result + countOfStudents;
+        return result;
+    }
+
+
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -219,4 +271,5 @@ public class Group {
         result = 31 * result + countOfStudents;
         return result;
     }
+*/
 }

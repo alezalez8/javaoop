@@ -62,6 +62,11 @@ public class Main {
         } catch (GroupOverflowException e) {
             System.out.println(e);
         }
+
+        System.out.println("======================================================");
+        System.out.println(group.getStudents());
+        System.out.println(group.getStudents().size());
+        System.out.println("======================================================");
         System.out.println("----------------1------------------------");
 
         try {
@@ -73,6 +78,10 @@ public class Main {
         System.out.println("------------------2----------------------");
 
         group.removeStudentByID(0); // try to delete non-existent student
+        System.out.println("======================================================");
+        System.out.println(group.getStudents());
+        System.out.println(group.getStudents().size());
+        System.out.println("======================================================");
         group.removeStudentByID(9);
 
 
