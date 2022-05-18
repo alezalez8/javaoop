@@ -10,7 +10,7 @@ public class Group {
     private String groupName;
     private Student[] students = new Student[10];
 
-    private List<Student> students1 = new ArrayList<>(10);
+    private List<Student> students1 = new ArrayList<>();
 
     private int countOfStudents = 0;
 
@@ -22,12 +22,10 @@ public class Group {
     }
 
 
-    //----------------------1 ---------------------------
+    //---------------------- #  1 ---------------------------
     public boolean theSameStudentIsPresent1(Student student) {
         if (student != null) {
-            if (students1.contains(student)) {
-                return true;
-            }
+            return students1.contains(student);
         }
         return false;
     }
@@ -46,7 +44,7 @@ public class Group {
 
     // ------------------------ end 1 -----------------------------
 
-    // ------------------------  2  ---------------------------
+    // ------------------------ #  2  ---------------------------
 
 
     public void addStudent1(Student student) throws GroupOverflowException {
@@ -59,7 +57,13 @@ public class Group {
             } else {
                 setGroupName(student.getGroupName());
             }
-            students1.add(student);
+            for (int i = 0; i < students1.size(); i++) {
+                if (students1.get(i).getId() != i) {
+                    student.setId(i);
+                    students1.add(i, student);
+                    return;
+                }
+            }
         } else {
             throw new GroupOverflowException("Group is completed, you can't added any students");
         }
@@ -92,7 +96,19 @@ public class Group {
     // ------------------------------- end 2 --------------------------------
 
 
-    //================================= 3 ==========================================
+    //================================= # 3 ==========================================
+
+    public Student searchStudentByLastName1(String lastName) throws StudentNotFoundException {
+        for (Student studentLastName : students1
+        ) {
+            if (lastName.equals(studentLastName.getLastName())) {
+                return studentLastName;
+            }
+        }
+        throw new StudentNotFoundException("Student " + lastName + " was not found");
+
+    }
+
 
     public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
         for (int i = 0; i < students.length; i++) {
@@ -104,10 +120,17 @@ public class Group {
         throw new StudentNotFoundException("Student " + lastName + " was not found");
     }
 
-  //==================================== end 3 ===========================================
+    //==================================== end 3 ===========================================
 
 
-    // ++++++++++++++++++++++++++++++   4 ++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++  # 4 ++++++++++++++++++++++++++++++++++++++++++++
+
+    public List<Student> sortByLastName1() {
+       // students1.sort((o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
+        students1.sort(Comparator.comparing(Human::getLastName));
+        return students1;
+    }
+
     public Student[] sortByLastName() {
         Student[] factStudents = new Student[countOfStudents];
         int newArrayOfStudent = 0;
@@ -125,11 +148,16 @@ public class Group {
 
     // +++++++++++++++++++++++++++++++++++  end 4 +++++++++++++++++++++++++++++++++++++++++++++++++
 
-    //  ***********************************  5 *************************************************
+    //  *********************************** # 5 *************************************************
 
 
     public boolean removeStudentByID1(int id) {
-        if(students1.contains())
+        if (students1.remove(students1.get(id))) {
+            System.out.println("Student with id = " + id + " was deleted succesfully");
+            return true;
+        }
+        System.out.println("Student with id = " + id + " was not found");
+        return false;
     }
 
 
