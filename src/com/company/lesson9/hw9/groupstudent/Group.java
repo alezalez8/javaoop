@@ -8,10 +8,7 @@ import java.util.List;
 public class Group {
 
     private String groupName;
-    // private Student[] students = new Student[10];
-
     private List<Student> students = new ArrayList<>();
-
     private int countOfStudents = 0;
 
     public Group() {
@@ -22,35 +19,17 @@ public class Group {
     }
 
 
-    //---------------------- #  1 ---------------------------
-    public boolean theSameStudentIsPresent1(Student student) {
+    public boolean theSameStudentIsPresent(Student student) {
         if (student != null) {
+            student.setGroupName(groupName);
             return students.contains(student);
         }
         return false;
     }
 
 
-/*
-    public boolean theSameStudentIsPresent(Student student) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null && students[i].hashCode() == student.hashCode()) {
-                if (students[i].equals(student)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-*/
-
-    // ------------------------ end 1 -----------------------------
-
-    // ------------------------ #  2  ---------------------------
-
-
     public void addStudent(Student student) throws GroupOverflowException {
-        if (theSameStudentIsPresent1(student)) {
+        if (theSameStudentIsPresent(student)) {
             throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
         }
         if (students.size() < 10) {
@@ -60,17 +39,17 @@ public class Group {
                 setGroupName(student.getGroupName());
             }
             //------------------------------------------------------
-            if (students.size() == 0) {
+            if (students.isEmpty()) {
                 student.setId(0);
                 students.add(0, student);
             }
 
             for (int i = 0; i <= students.size(); i++) {
-               // System.err.println(students.toString());
+                // System.err.println(students.toString());
                 if (students.get(i).getId() == i) {
-                    student.setId(i+1);
-                    students.add(i+1, student);
-                   // countOfStudents++;
+                    student.setId(i + 1);
+                    students.add(i + 1, student);
+                    // countOfStudents++;
                     return;
                 }
             }
@@ -80,31 +59,6 @@ public class Group {
     }
 
 
-/*
-    public void addStudent(Student student) throws GroupOverflowException {
-
-        if (!theSameStudentIsPresent(student)) {
-            throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
-        }
-
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] == null) {
-                if (student.getGroupName() == null) {
-                    student.setGroupName(groupName);
-                } else {
-                    setGroupName(student.getGroupName());
-                }
-                student.setId(i + 1);
-                students[i] = student;
-                countOfStudents++;
-                return;
-            }
-        }
-        throw new GroupOverflowException("Group is completed, you can't added any students");
-
-
-    }
-*/
     // ------------------------------- end 2 --------------------------------
 
 
@@ -168,8 +122,8 @@ public class Group {
 
 
     public boolean removeStudentByID(int id) {
-       // if (students.remove(students.get(id))) {
-        if (students.remove(id)!= null) {
+        // if (students.remove(students.get(id))) {
+        if (students.remove(id) != null) {
             System.out.println("Student with id = " + id + " was deleted succesfully");
             return true;
         }
