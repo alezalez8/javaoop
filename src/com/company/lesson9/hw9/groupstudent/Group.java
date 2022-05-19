@@ -20,9 +20,12 @@ public class Group {
 
 
     public boolean theSameStudentIsPresent(Student student) {
-        if (student != null) {
-            student.setGroupName(groupName);
-            return students.contains(student);
+        for (Student st : students
+        ) {
+            if (st.getName().equals(student.getName())
+                    && st.getLastName().equals(student.getLastName())) {
+                return true;
+            }
         }
         return false;
     }
@@ -33,36 +36,25 @@ public class Group {
             throw new GroupOverflowException("This student is already present in this group, you can't add this student again");
         }
         if (students.size() < 10) {
-            if (student.getGroupName() == null) {
-                student.setGroupName(groupName);
-            } else {
-                setGroupName(student.getGroupName());
-            }
-            //------------------------------------------------------
-            if (students.isEmpty()) {
-                student.setId(0);
-                students.add(0, student);
-            }
+            student.setGroupName(groupName);
 
-            for (int i = 0; i <= students.size(); i++) {
-                // System.err.println(students.toString());
-                if (students.get(i).getId() == i) {
-                    student.setId(i + 1);
-                    students.add(i + 1, student);
-                    // countOfStudents++;
-                    return;
+            int postiton = 0;
+            for (Student st : students
+            ) {
+                if (st.getId() == postiton) {
+                    postiton++;
+                } else {
+                    break;
                 }
             }
+            student.setId(postiton);
+            students.add(postiton, student);
+
         } else {
             throw new GroupOverflowException("Group is completed, you can't added any students");
         }
     }
 
-
-    // ------------------------------- end 2 --------------------------------
-
-
-    //================================= # 3 ==========================================
 
     public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
         for (Student studentLastName : students) {
@@ -75,79 +67,29 @@ public class Group {
 
     }
 
-
-/*
-    public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null && lastName.equals(students[i].getLastName())) {
-                System.out.println("Student  " + students[i].getLastName() + " was found");
-                return students[i];
-            }
-        }
-        throw new StudentNotFoundException("Student " + lastName + " was not found");
-    }
-*/
-
-    //==================================== end 3 ===========================================
-
-
-    // ++++++++++++++++++++++++++++++  # 4 ++++++++++++++++++++++++++++++++++++++++++++
-
     public List<Student> sortByLastName() {
         // students1.sort((o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
         students.sort(Comparator.comparing(Human::getLastName));
         return students;
     }
 
-/*
-    public Student[] sortByLastName() {
-        Student[] factStudents = new Student[countOfStudents];
-        int newArrayOfStudent = 0;
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null) {
-                factStudents[newArrayOfStudent] = students[i];
-                newArrayOfStudent++;
-            }
-        }
-        Arrays.sort(factStudents, Comparator.nullsFirst(Comparator.comparing(Student::getLastName)));
-        return factStudents;
-
-
-    }
-*/
-
-    // +++++++++++++++++++++++++++++++++++  end 4 +++++++++++++++++++++++++++++++++++++++++++++++++
-
-    //  *********************************** # 5 *************************************************
-
 
     public boolean removeStudentByID(int id) {
-        // if (students.remove(students.get(id))) {
-        if (students.remove(id) != null) {
-            System.out.println("Student with id = " + id + " was deleted succesfully");
-            return true;
+        if (id < students.size()) {
+            for (Student st : students
+            ) {
+                if (st.getId() == id) {
+                    students.remove(st);
+                    System.out.println("Student with id = " + id + " was deleted succesfully");
+                    return true;
+                }
+            }
+
         }
         System.out.println("Student with id = " + id + " was not found");
         return false;
     }
 
-
-/*
-    public boolean removeStudentByID(int id) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] != null && id == students[i].getId()) {
-                students[i] = null;
-                countOfStudents--;
-                System.out.println("Student with id = " + id + " was deleted succesfully");
-                return true;
-            }
-        }
-        System.out.println("Student with id = " + id + " was not found");
-        return false;
-    }
-*/
-
-    // ************************************* end 5 ****************************************************
 
     public String getGroupName() {
         return groupName;
@@ -156,16 +98,6 @@ public class Group {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-
-/*
-    public Student[] getStudents() {
-        return students;
-    }
-
-    public void setStudents(Student[] students) {
-        this.students = students;
-    }
-*/
 
 
     public List<Student> getStudents() {
@@ -203,27 +135,4 @@ public class Group {
         return result;
     }
 
-
-    /*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Group)) return false;
-
-        Group group = (Group) o;
-
-        if (countOfStudents != group.countOfStudents) return false;
-        if (groupName != null ? !groupName.equals(group.groupName) : group.groupName != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(students, group.students);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = groupName != null ? groupName.hashCode() : 0;
-        result = 31 * result + Arrays.hashCode(students);
-        result = 31 * result + countOfStudents;
-        return result;
-    }
-*/
 }

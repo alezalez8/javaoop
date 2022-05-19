@@ -3,11 +3,7 @@ package com.company.lesson9.hw9.groupstudent;
 public class Main {
     public static void main(String[] args) throws StudentNotFoundException {
 
-/*
-        Student student1 = new Student("Aleks", "Shunin", Gender.MALE);
-        Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
-        Student student3 = new Student("Sasha", "Petrov", Gender.MALE);
-*/
+
         Group group = new Group("java-oop-18042022");
         Student student1 = new Student("Aleks", "Shunin", Gender.MALE);
         Student student2 = new Student("Gena", "Ivanov", Gender.MALE);
@@ -65,9 +61,8 @@ public class Main {
 
         System.out.println("======================================================");
         System.out.println(group.getStudents());
-        System.out.println(group.getStudents().size());
         System.out.println("======================================================");
-        System.out.println("----------------1------------------------");
+        System.out.println("------------------1----------------------");
 
         try {
             group.searchStudentByLastName("Ivanov");
@@ -80,7 +75,6 @@ public class Main {
         group.removeStudentByID(0); // try to delete non-existent student
         System.out.println("======================================================");
         System.out.println(group.getStudents());
-        System.out.println(group.getStudents().size());
         System.out.println("======================================================");
         group.removeStudentByID(9);
 
@@ -92,17 +86,23 @@ public class Main {
         try {
             // group.addStudent(student.newStudent());  // try to add one more student
             group.addStudent(student1);  // try to add one more student
+            group.addStudent(student1);  // try to add one more student
             // try to add one more student
         } catch (GroupOverflowException e) {
             System.out.println(e);
         }
 
-        System.out.println("-------------------5---------------------");
+        System.out.println("------------------5----------------------");
         System.out.println(group);
 
+        group.removeStudentByID(5);
         group.removeStudentByID(6);
-        group.removeStudentByID(7);
-        System.out.println("-------------------6---------------------");
+        System.out.println("------------------6----------------------");
+        System.out.println(group);
+
+        System.out.println("------------------7----------------------");
+        System.out.println("---------- sorting group ----------------");
+        group.sortByLastName();
         System.out.println(group);
     }
 
