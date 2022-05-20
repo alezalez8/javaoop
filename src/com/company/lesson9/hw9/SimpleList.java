@@ -1,6 +1,5 @@
 package com.company.lesson9.hw9;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
