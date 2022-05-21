@@ -7,7 +7,7 @@ public interface TranslateService {
 
     void loadDict();
 
-    void editDict();
+    void editAndSaveDictionary();
 
     void translate();
 

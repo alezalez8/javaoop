@@ -7,6 +7,8 @@ public class Main {
         translate.loadDict();
 
         translate.printDictionary();
-
+        System.out.println("============================================");
+        translate.editAndSaveDictionary();
+        translate.printDictionary();
     }
 }

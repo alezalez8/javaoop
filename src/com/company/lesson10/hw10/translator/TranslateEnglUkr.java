@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class TranslateEnglUkr implements TranslateService {
     private Map<String, String> wordMap = new HashMap<>();
@@ -91,10 +92,38 @@ public class TranslateEnglUkr implements TranslateService {
     }
 
     @Override
-    public void editDict() {
+    public void editAndSaveDictionary() {
+        String anglWord;
+        String ukrlWord;
         loadDict();
-        // added edit
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Редагування словника");
+        System.out.println("Для виходу будь-якої миті натисніть пробел Еnter");
+        System.out.println("Введіть слово англійською і натисніть Enter");
+
+        for (; (!(anglWord = scanner.nextLine()).equals(" ")); ) {
+            System.out.println("Введіть слово англійською і натисніть Enter");
+            for (Map.Entry<String, String> map : wordMap.entrySet()
+            ) {
+                if (map.getKey().equals(anglWord)) {
+                    System.out.println("Таке слово вже є у словнику");
+                    continue;
+                } else {
+                    System.out.println("Введіть слово українською і натисніть Enter");
+                    ukrlWord = scanner.nextLine();
+                    if (!ukrlWord.equals(" ")) {
+                        return;
+                    }
+                    {
+                        wordMap.put(anglWord, ukrlWord);
+                    }
+                }
+            }
+
+        }
+        scanner.close();
         saveDict();
+        System.out.println("Слово(а) збережено в словнику");
     }
 
     @Override
