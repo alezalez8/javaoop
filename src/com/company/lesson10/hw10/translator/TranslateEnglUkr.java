@@ -1,10 +1,7 @@
 package com.company.lesson10.hw10.translator;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 
 public class TranslateEnglUkr implements TranslateService {
     private Map<String, String> wordMap = new HashMap<>();
@@ -43,10 +40,13 @@ public class TranslateEnglUkr implements TranslateService {
 
 
     private final void checkPresentDictionary() {
-        try {
-            this.dictionary.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!dictionary.exists()) {
+            try {
+                this.dictionary.createNewFile();
+                saveDict();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -57,9 +57,28 @@ public class TranslateEnglUkr implements TranslateService {
         return 0;
     }
 
-    @Override
-    public void addWord() {
 
+    private void addWord() {
+        String anglWord;
+        String ukrlWord;
+        loadDict();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Редагування словника");
+        System.out.println("Введіть слово англійською і натисніть Enter");
+        for (; (!(anglWord = scanner.nextLine()).equals("n")); ) {
+            if (!isWordPresent(anglWord)) {
+                System.out.println("Введіть слово українською і натисніть Enter");
+                ukrlWord = scanner.nextLine();
+                wordMap.put(anglWord, ukrlWord);
+            }
+
+            System.out.println("для виходу натисніть n , для продовження натисніть будь-яку клавішу");
+            if (scanner.nextLine().equals("n")) {
+                return;
+            }
+            System.out.println("Введіть слово англійською і натисніть Enter");
+        }
+        scanner.close();
     }
 
     @Override
@@ -93,45 +112,46 @@ public class TranslateEnglUkr implements TranslateService {
 
     @Override
     public void editAndSaveDictionary() {
-        String anglWord;
-        String ukrlWord;
         loadDict();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Редагування словника");
-        System.out.println("Для виходу будь-якої миті натисніть пробел Еnter");
-        System.out.println("Введіть слово англійською і натисніть Enter");
-
-        for (; (!(anglWord = scanner.nextLine()).equals(" ")); ) {
-            System.out.println("Введіть слово англійською і натисніть Enter");
-            for (Map.Entry<String, String> map : wordMap.entrySet()
-            ) {
-                if (map.getKey().equals(anglWord)) {
-                    System.out.println("Таке слово вже є у словнику");
-                    continue;
-                } else {
-                    System.out.println("Введіть слово українською і натисніть Enter");
-                    ukrlWord = scanner.nextLine();
-                    if (!ukrlWord.equals(" ")) {
-                        return;
-                    }
-                    {
-                        wordMap.put(anglWord, ukrlWord);
-                    }
-                }
-            }
-
-        }
-        scanner.close();
+        addWord();
         saveDict();
         System.out.println("Слово(а) збережено в словнику");
     }
 
+
     @Override
     public void translate() {
+        loadDict();
+        List<String> textArray = new ArrayList<>();
+        try (FileReader reader = new FileReader(inputFile);
+             FileWriter writer = new FileWriter(outputFile)) {
 
+            for (; reader.ready(); ) {
+
+            }
+
+
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
+
+
+    private boolean isWordPresent(String word) {
+        for (Map.Entry<String, String> map : wordMap.entrySet()) {
+            if (map.getKey().equals(word)) {
+                System.out.println("Таке слово вже є у словнику");
+                return true;
+            }
+
+        }
+        return false;
     }
 
     public void printDictionary() {
+        loadDict();
         System.out.println(wordMap);
+        System.out.println("Розмір словника " + wordMap.size() + " слов");
     }
+
 }
