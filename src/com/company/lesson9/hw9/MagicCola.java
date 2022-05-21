@@ -1,7 +1,7 @@
 package com.company.lesson9.hw9;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class MagicCola {
     public static void main(String[] args) {
@@ -10,22 +10,23 @@ public class MagicCola {
     }
 
     public static void printAllPerson(int countOfCups) {
-        List<String> nameOfList = new ArrayList<>();
+        Deque<String> nameOfPeople = new ArrayDeque<>();
 
-        nameOfList.add("Sheldon");
-        nameOfList.add("Leonard");
-        nameOfList.add("Volovitc");
-        nameOfList.add("Kutrapalli");
-        nameOfList.add("Penny");
+        nameOfPeople.addLast("Sheldon");
+        nameOfPeople.addLast("Leonard");
+        nameOfPeople.addLast("Volovitc");
+        nameOfPeople.addLast("Kutrapalli");
+        nameOfPeople.addLast("Penny");
 
         String temp;
         for (int i = 0; i < countOfCups; i++) {
-            temp = nameOfList.remove(0);
+            temp = nameOfPeople.removeFirst();
             for (int j = 0; j < 2; j++) {
-                nameOfList.add(temp);
+                nameOfPeople.addLast(temp);
             }
         }
-        System.out.println(nameOfList);
+
+        System.out.println(nameOfPeople);
     }
 
 }
