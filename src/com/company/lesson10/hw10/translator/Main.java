@@ -5,10 +5,13 @@ public class Main {
         TranslateService translate = new TranslateEnglUkr();
         //translate.saveDict();
        // translate.loadDict();
+        translate.translate();
 
+/*
         translate.printDictionary();
         System.out.println("============================================");
-        translate.editAndSaveDictionary();
+        translate.addAndSaveDictionary();
         translate.printDictionary();
+*/
     }
 }

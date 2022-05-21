@@ -111,7 +111,7 @@ public class TranslateEnglUkr implements TranslateService {
     }
 
     @Override
-    public void editAndSaveDictionary() {
+    public void addAndSaveDictionary() {
         loadDict();
         addWord();
         saveDict();
@@ -123,17 +123,25 @@ public class TranslateEnglUkr implements TranslateService {
     public void translate() {
         loadDict();
         List<String> textArray = new ArrayList<>();
-        try (FileReader reader = new FileReader(inputFile);
-             FileWriter writer = new FileWriter(outputFile)) {
-
-            for (; reader.ready(); ) {
-
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            String result = "";
+            String temp = "";
+            for (; ; ) {
+                if (temp == null) {
+                    break;
+                }
+                result += temp + System.lineSeparator();
+                System.out.println(result);
             }
-
+            textArray = List.of(result.split(" "));
+            System.out.println(textArray);
 
         } catch (IOException e) {
             e.getMessage();
         }
+
+        System.out.println(textArray);
     }
 
 
