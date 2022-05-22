@@ -10,8 +10,6 @@ public class Main {
     }
 
 
-
-
     public static void modeTranslate(TranslateService translate) {
         System.out.println("виберіть потрібну вам дію:");
         System.out.println("додавання слів до словника -натиснить 1");

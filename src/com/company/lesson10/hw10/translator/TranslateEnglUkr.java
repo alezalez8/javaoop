@@ -83,7 +83,6 @@ public class TranslateEnglUkr implements TranslateService {
         scanner.close();
     }
 
-    @Override
     public void saveDict() {
         for (Map.Entry<String, String> set : wordMap.entrySet()
         ) {
@@ -96,8 +95,7 @@ public class TranslateEnglUkr implements TranslateService {
         }
     }
 
-    @Override
-    public void loadDict() {
+     public void loadDict() {
         Properties properties = new Properties();
         try (InputStream stream = new FileInputStream(dictionary)) {
             properties.load(stream);
