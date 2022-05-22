@@ -6,9 +6,12 @@ import java.util.*;
 public class TranslateEnglUkr implements TranslateService {
     private Map<String, String> wordMap = new HashMap<>();
     private Properties properties = new Properties();
-    private File dictionary = new File("C:\\Users\\Администратор\\Desktop\\dict\\diction.dic");
-    private File inputFile = new File("C:\\Users\\Администратор\\Desktop\\dict\\English.in");
-    private File outputFile = new File("C:\\Users\\Администратор\\Desktop\\dict\\Ukrainian.out");
+    private File dictionary = new File("./src/diction.dic");
+    private File inputFile = new File("./src/English.in");
+    private File outputFile = new File("./src/Ukrainian.out");
+
+
+
 
     public TranslateEnglUkr() {
         checkPresentDictionary();
@@ -57,19 +60,12 @@ public class TranslateEnglUkr implements TranslateService {
     }
 
 
-    public int translateMode() {
-        int m;
-
-        return 0;
-    }
-
-
     private void addWord() {
         String anglWord;
         String ukrlWord;
         loadDict();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Редагування словника");
+        System.out.println("Додавання слов до  словника");
         System.out.println("Введіть слово англійською і натисніть Enter");
         for (; (!(anglWord = scanner.nextLine()).equals("n")); ) {
             if (!isWordPresent(anglWord)) {
@@ -93,7 +89,6 @@ public class TranslateEnglUkr implements TranslateService {
         ) {
             properties.put(set.getKey(), set.getValue());
             try (OutputStream stream = new FileOutputStream(dictionary)) {
-
                 properties.store(stream, null);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -109,7 +104,6 @@ public class TranslateEnglUkr implements TranslateService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         for (String key : properties.stringPropertyNames()) {
             wordMap.put(key, properties.get(key).toString());
         }
@@ -121,7 +115,7 @@ public class TranslateEnglUkr implements TranslateService {
         loadDict();
         addWord();
         saveDict();
-        System.out.println("Слово(а) збережено в словнику");
+        System.out.println("Зараз " + wordMap.size() + " слов(а) у словнику");
     }
 
 
@@ -138,9 +132,6 @@ public class TranslateEnglUkr implements TranslateService {
                 }
                 result += temp.toLowerCase() + " ";
             }
-            System.out.println(result);
-            System.out.println("==================================================");
-
             writer.write(translate(result));
         } catch (IOException e) {
             e.getMessage();
@@ -155,7 +146,6 @@ public class TranslateEnglUkr implements TranslateService {
         String translateText = "";
         text = text.replace('.', ' ');
         List<String> textArray = List.of(text.split(" "));
-        System.out.println(textArray);
         for (String word : textArray
         ) {
             temp = wordMap.get(word);
@@ -175,14 +165,12 @@ public class TranslateEnglUkr implements TranslateService {
                 System.out.println("Таке слово вже є у словнику");
                 return true;
             }
-
         }
         return false;
     }
 
     public void printDictionary() {
         loadDict();
-        System.out.println(wordMap);
         System.out.println("Розмір словника " + wordMap.size() + " слов");
     }
 
