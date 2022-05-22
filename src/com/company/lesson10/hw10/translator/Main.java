@@ -14,4 +14,8 @@ public class Main {
         translate.printDictionary();
 */
     }
+
+    public static void modeTranslate() {
+        System.out.println("");
+    }
 }
