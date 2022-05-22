@@ -5,7 +5,7 @@ public class Main {
         TranslateService translate = new TranslateEnglUkr();
         //translate.saveDict();
        // translate.loadDict();
-        translate.translate();
+        translate.loadAndSaveTranslateText();
 
 /*
         translate.printDictionary();

@@ -16,6 +16,10 @@ public class TranslateEnglUkr implements TranslateService {
 
     {
         wordMap.put("glass", "скло");
+        wordMap.put(".", ".");
+        wordMap.put("i", "я");
+        wordMap.put("glad", "радий");
+        wordMap.put("you", "тебе");
         wordMap.put("area", "площа");
         wordMap.put("case", "випадок");
         wordMap.put("country", "країна");
@@ -23,6 +27,7 @@ public class TranslateEnglUkr implements TranslateService {
         wordMap.put("day", "день");
         wordMap.put("money", "грошi");
         wordMap.put("people", "люди");
+        wordMap.put("home", "до дому");
         wordMap.put("point", "точка");
         wordMap.put("story", "історія");
         wordMap.put("student", "студент");
@@ -120,28 +125,47 @@ public class TranslateEnglUkr implements TranslateService {
 
 
     @Override
-    public void translate() {
-        loadDict();
-        List<String> textArray = new ArrayList<>();
+    public void loadAndSaveTranslateText() {
+
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
             String result = "";
             String temp = "";
             for (; ; ) {
+                temp = reader.readLine();
                 if (temp == null) {
                     break;
                 }
-                result += temp + System.lineSeparator();
-                System.out.println(result);
+                result += temp.toLowerCase() + " ";
             }
-            textArray = List.of(result.split(" "));
-            System.out.println(textArray);
+            System.out.println(result);
+            System.out.println("==================================================");
 
+            writer.write(translate(result));
         } catch (IOException e) {
             e.getMessage();
         }
 
+    }
+
+    @Override
+    public String translate(String text) {
+        loadDict();
+        String temp;
+        String translateText = "";
+        text = text.replace('.', ' ');
+        List<String> textArray = List.of(text.split(" "));
         System.out.println(textArray);
+        for (String word : textArray
+        ) {
+            temp = wordMap.get(word);
+            if (temp == null) {
+                temp = " ";
+            }
+            translateText += temp + " ";
+        }
+        System.out.println(translateText);
+        return translateText;
     }
 
 

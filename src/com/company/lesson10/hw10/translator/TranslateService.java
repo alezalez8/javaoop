@@ -9,7 +9,9 @@ public interface TranslateService {
 
     void addAndSaveDictionary();
 
-    void translate();
+    void loadAndSaveTranslateText();
+
+    String translate(String text);
 
     void printDictionary();
 }
