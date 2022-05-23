@@ -1,6 +1,8 @@
 /**
  * взял генератор матрицы 5х8 с сайта
  * http://arduino.on.kg/redaktor-simvolov-dlya-matric-5h7
+ * логика проги - построчный суммарный вывод каждой из семи линий
+ *
  */
 
 
@@ -27,10 +29,7 @@ public class ArtASCII {
         String c = " *** \n\r*   *\n\r*    \n\r*    \n\r*    \n\r*   *\n\r *** \n\r";
         String d = "***  \n\r*  * \n\r*   *\n\r*   *\n\r*   *\n\r*  * \n\r***  \n\r";
 
-        arrayOfArtSymbols.add(a);
-        arrayOfArtSymbols.add(b);
-        arrayOfArtSymbols.add(c);
-        arrayOfArtSymbols.add(d);
+
 
         String e = " *** \n\r*   *\n\r*   *\n\r*   *\n\r*****\n\r*   *\n\r*   *\n\r*   *";
         String f = " *** \n\r*   *\n\r*   *\n\r*   *\n\r*****\n\r*   *\n\r*   *\n\r*   *";
@@ -55,6 +54,12 @@ public class ArtASCII {
         String x = " *** \n\r*   *\n\r*   *\n\r*   *\n\r*****\n\r*   *\n\r*   *\n\r*   *";
         String y = " *** \n\r*   *\n\r*   *\n\r*   *\n\r*****\n\r*   *\n\r*   *\n\r*   *";
         String z = " *** \n\r*   *\n\r*   *\n\r*   *\n\r*****\n\r*   *\n\r*   *\n\r*   *";
+
+        arrayOfArtSymbols.add(a);
+        arrayOfArtSymbols.add(b);
+        arrayOfArtSymbols.add(c);
+        arrayOfArtSymbols.add(d);
+
         for (String temp : arrayOfArtSymbols
         ) {
             System.out.println(temp);
