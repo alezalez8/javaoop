@@ -41,7 +41,16 @@ public class MyASCII {
         private String[] x = { "#     #", " #   # ", "  # #  ", "   #   ", "  # #  " , " #   # ","#     #"};
         private String[] y = { "#     #", " #   # ", "  # #  ", "   #   ", "   #   " , "   #   ","   #   "};
         private String[] z = { "#######", "     # ", "    #  ", "   #   ", "  #    " , " #     ","#######"};
+        private String[] space = { "   ", "   ", "   ", "   ", "   " , "   ","   "};
 
+    public  List<String[]> addSymbols() {
+        myAscTwo.add(a);
+        myAscTwo.add(b);
+        myAscTwo.add(c);
+        myAscTwo.add(d);
 
+        return myAscTwo;
+
+    }
 
 }
